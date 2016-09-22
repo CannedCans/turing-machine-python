@@ -190,7 +190,6 @@ class DataTape:
         return self.tape[self.index]
     def setBlank(self, blankSymbol):
         """
-        UNTESTED: PLEASE REMOVE THIS WHEN TESTED PROPERLY
         Allows you to set the blank symbol to something else (for the erase instruction).
         DOES NOT change existing blanks to the new symbol. (call self.changeTo(old,new) for that)
         
@@ -201,7 +200,7 @@ class DataTape:
         self.blank = blankSymbol
     def changeTo(self, oldSymbol, newSymbol):
         """
-        UNTESTED: PLEASE REMOVE THIS WHEN TESTED PROPERLY
+        SHOULD WORK NOW
         Changes every instance of one symbol <oldSymbol> to the symbol <newSymbol>
         
         @type self: DataTape
@@ -209,9 +208,9 @@ class DataTape:
         @type newSymbol: *
         @rtype: None
         """
-        for x in self.tape:
-            if x == oldSymbol:
-                x = newSymbol
+        for x in range(0, len(self.tape)):
+            if self.tape[x] == oldSymbol:
+                self.tape[x] = newSymbol
         
         
 class State:
