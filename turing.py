@@ -1,16 +1,23 @@
 """
 A package for simulating a Turing Machine
 
+Can be used to run either a set of states (traditional Turing Machine) or a string filled with a set of instructions
+The string filled with a set of instructions currently cannot loop to the best of my knowledge (no loop instructions were
+written in)
+
 """
 
 class TuringMachine:
     def __init__(self):
         """
+        Constructor Method for the TuringMachine class. Sets up variables that are needed later on
+        
         @type self: TuringMachine
         @rtype: None
         """
         #self.loadedTape = DataTape()
-        #self.tapes = [self.loadedTape, DataTape()]
+        #self.tapes = [self.loadedTape, DataTape()] #Does not work properly, appears that the second data tape is mutated
+        #when the first data tape is loaded. The first is mutated as well.
         self.loadedTape = DataTape()
         self.states = []
         self.halted = False
@@ -21,22 +28,22 @@ class TuringMachine:
         @type c: str
         @rtype: None
         """
-        if c == "E":
+        if c == "E": #Sets the cell the head is over to the blank value (blank value is set on the individual tape)
             self.loadedTape.erase()
-        elif c == "R":
+        elif c == "R": #Shifts the tape right
             self.loadedTape.shiftRight()
-        elif c == "L":
+        elif c == "L": #Shifts the tape left
             self.loadedTape.shiftLeft()
-        elif c[0] == "W":
-            if c[1] == "0" or c[1] == "1":
+        elif c[0] == "W": #Writes a symbol to the tape, skips the next character (ie. W1 skips the 1) when running a string
+            if c[1] == "0" or c[1] == "1": #Currently the only two properly supported integers, others get written as a string
                 self.loadedTape.write(int(c[1]))
             else:
                 self.loadedTape.write(c[1])
-        elif c[0] == "S":
+        elif c[0] == "S": #S(kip) instruction, does nothing
             pass
         elif c[0] == "H": #Should not get called but is a valid instruction. Halting should be handled at the states
             self.halted = True
-        #elif c[0] == "I": #META INSTRUCTION, LOAD TAPE AT INDEX (insert into machine)
+        #elif c[0] == "I": #META INSTRUCTION, LOAD TAPE AT INDEX (insert into machine) #DOES NOT WORK PROPERLY
         #    try:
         #        print("META: LOADING TAPE: " + str(c[1]))
         #        #print(id(self.loadedTape))
@@ -77,12 +84,29 @@ class TuringMachine:
         print(self.loadedTape.tape)
 
     def addState(self, s=[]):
+        """
+        Adds in an individual state, with each row being written as one sublist
+        
+        @type self: TuringMachine
+        @type s: list
+        @rtype: None
+        """
         k = State(len(self.states))
         if s != []:
             for x in s:
                 k.addRow(x[0], x[1][0], x[1][1], x[1][2])
         self.states.append(k)
     def executeState(self, num):
+        """
+        Begins execution of a program loaded using calls to self.addState() at the state number.
+        State numbers begin at 0 and correspond to the index of the states within a list of states.
+        State numbers are assigned each time addState is called, meaning that the first call to addState has the state
+        number 0, the second call is number 1, and so on
+        
+        @type self: TuringMachine
+        @type num: int
+        @rtype: None
+        """
         while self.halted == False:
             #r = self.loadedTape.read()
             iSet = self.states[num].rows[self.loadedTape.read()]
@@ -98,7 +122,7 @@ class DataTape:
     def __init__(self, defaultTape = [], boundedSize = -1):
         """
         Takes in an optional defaultState for the data tape to begin on.
-        Takes in an optional boundedSize at which the tape will loop
+        Takes in an optional boundedSize at which the tape will loop (not currently implemented)
 
         @type self: DataTape
         @type defaultTape: list
