@@ -43,14 +43,14 @@ class TuringMachine:
             pass
         elif c[0] == "H": #Should not get called but is a valid instruction. Halting should be handled at the states
             self.halted = True
-        #elif c[0] == "I": #META INSTRUCTION, LOAD TAPE AT INDEX (insert into machine) #DOES NOT WORK PROPERLY
+        #elif c[0] == "I": #SPECIAL INSTRUCTION, LOAD TAPE AT INDEX (insert into machine) #DOES NOT WORK PROPERLY
         #    try:
-        #        print("META: LOADING TAPE: " + str(c[1]))
+        #        print("SPECIAL: LOADING TAPE: " + str(c[1]))
         #        #print(id(self.loadedTape))
         #        #self.loadedTape = self.tapes[int(c[1])]
         #        #print(id(self.loadedTape))
         #    except:
-        #        print("META: SEVERE ERROR LOADING TAPE")
+        #        print("SPECIAL: SEVERE ERROR LOADING TAPE")
     def runString(self, st):
         """
         Ignores the state table, simply runs the program as typed in
