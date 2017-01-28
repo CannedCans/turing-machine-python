@@ -12,7 +12,7 @@ Regardless of how you intend to use the machine, you need to initialize an insta
 
 \>\>\> import turing
 
-\>\>\> t=turing.TuringMachine()
+\>\>\> t = turing.TuringMachine()
 
 If you wish to only run a string of instructions, you just need to call
 
