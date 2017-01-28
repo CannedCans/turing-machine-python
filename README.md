@@ -9,23 +9,24 @@ Can run:
   
 # Instructions for Use
 Regardless of how you intend to use the machine, you need to initialize an instance of it
->>> import turing
 
->>> t=turing.TuringMachine()
+\>\>\> import turing
+
+\>\>\> t=turing.TuringMachine()
 
 If you wish to only run a string of instructions, you just need to call
 
->>> t.runString(str) #Valid instructions are listed below
+\>\>\> t.runString(str) #Valid instructions are listed below
   
 If you wish to run a set of states, you must first load all states
 
 An example might be the 3-state busy beaver program, which leaves the tape in the state [0,1,1,1,1,1,1,0]
 
->>> t.addState([[0,["1", "R", 1]], [1, ["1", "L", 2]]])
+\>\>\> t.addState([[0,["1", "R", 1]], [1, ["1", "L", 2]]])
 
->>> t.addState([[0, ["1", "L", 0]], [1, ["1", "R", 1]]])
+\>\>\> t.addState([[0, ["1", "L", 0]], [1, ["1", "R", 1]]])
 
->>> t.addState([[0, ["1", "L", 1]], [1,["1","R", "H"]]])
+\>\>\> t.addState([[0, ["1", "L", 1]], [1,["1","R", "H"]]])
 
 It is a list of lists of the form [x, [a,b,c]], where x is the row number within the state, a is the character read in, b is the movement symbol to be done, and c is the next state to move to.
 
@@ -33,11 +34,11 @@ All the states are now loaded, we just need to indicate which state to start off
 
 Since we loaded the starting state first, it is state 0. We then call t.executeState(0)
 
->>> t.executeState(0)
+\>\>\> t.executeState(0)
 
 Afterwards, we should call
 
->>>t.printTape()
+\>\>\> t.printTape()
 
 to see the final state of the tape.
 
