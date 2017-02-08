@@ -16,8 +16,8 @@ class TuringMachine:
         @rtype: None
         """
         #self.loadedTape = DataTape()
-        #self.tapes = [self.loadedTape, DataTape()] #Does not work properly, appears that the second data tape is mutated
-        #when the first data tape is loaded. The first is mutated as well.
+        #self.tapes = [self.loadedTape, DataTape()] # Does not work properly, appears that the second data tape is mutated
+        # when the first data tape is loaded. The first is mutated as well.
         self.loadedTape = DataTape()
         self.states = []
         self.halted = False
@@ -28,22 +28,22 @@ class TuringMachine:
         @type c: str
         @rtype: None
         """
-        if c == "E": #Sets the cell the head is over to the blank value (blank value is set on the individual tape)
+        if c == "E": # Sets the cell the head is over to the blank value (blank value is set on the individual tape)
             self.loadedTape.erase()
-        elif c == "R": #Shifts the tape right
+        elif c == "R": # Shifts the tape right
             self.loadedTape.shiftRight()
-        elif c == "L": #Shifts the tape left
+        elif c == "L": # Shifts the tape left
             self.loadedTape.shiftLeft()
-        elif c[0] == "W": #Writes a symbol to the tape, skips the next character (ie. W1 skips the 1) when running a string
+        elif c[0] == "W": # Writes a symbol to the tape, skips the next character (ie. W1 skips the 1) when running a string
             if c[1] == "0" or c[1] == "1": #Currently the only two properly supported integers, others get written as a string
                 self.loadedTape.write(int(c[1]))
             else:
                 self.loadedTape.write(c[1])
-        elif c[0] == "S": #S(kip) instruction, does nothing
+        elif c[0] == "S": # S(kip) instruction, does nothing
             pass
-        elif c[0] == "H": #Should not get called but is a valid instruction. Halting should be handled at the states
+        elif c[0] == "H": # Should not get called but is a valid instruction. Halting should be handled at the states
             self.halted = True
-        #elif c[0] == "I": #SPECIAL INSTRUCTION, LOAD TAPE AT INDEX (insert into machine) #DOES NOT WORK PROPERLY
+        #elif c[0] == "I": # SPECIAL INSTRUCTION, LOAD TAPE AT INDEX (insert into machine) #DOES NOT WORK PROPERLY
         #    try:
         #        print("SPECIAL: LOADING TAPE: " + str(c[1]))
         #        #print(id(self.loadedTape))
@@ -70,8 +70,8 @@ class TuringMachine:
                     skip += 1
                     self.doInstruction(st[c] + st[c+1])
                 elif st[c] in skipInstructions and c == len(st) - 1:
-                    pass #To prevent any problems when a W, etc is the last line of a run program
-                        #Might need additions if a multi skip is ever added
+                    pass # To prevent any problems when a W, etc is the last line of a run program
+                        # Might need additions if a multi skip is ever added
                 else:
                     self.doInstruction(st[c])
 
@@ -200,7 +200,6 @@ class DataTape:
         self.blank = blankSymbol
     def changeTo(self, oldSymbol, newSymbol):
         """
-        SHOULD WORK NOW
         Changes every instance of one symbol <oldSymbol> to the symbol <newSymbol>
         
         @type self: DataTape
@@ -222,7 +221,7 @@ class State:
             self.rows.update({symbol: ["W" + writeSymbol, moveSymbol, stateNumber]})
 
 if __name__ == "__main__":
-    #Sample code for a busy beaver as should be typed in
+    # Sample code for a busy beaver as should be typed in
     t = TuringMachine()
     t.addState([[0,["1", "R", 1]], [1, ["1", "L", 2]]])
     t.addState([[0, ["1", "L", 0]], [1, ["1", "R", 1]]])
